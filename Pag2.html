@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Formulário de Login e Registro</title>
+  <meta name="author" content="HTML e CSS Pro" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" type="text/css" href="Pag2.css" />
+  
+ 
+</head>
+
+  <body>
+  <div class="container">
+    <!-- Menu -->
+    <input type="radio" name="radio" id="radio-nav-1" checked="checked" />
+    <span>Usuários</span>
+    <input type="radio" name="radio" id="radio-nav-2" />
+    <span>Pedidos</span>
+    <input type="radio" name="radio" id="radio-nav-3" />
+    <span>Condomínio</span>
+    <input type="radio" name="radio" id="radio-nav-4" />
+    <span>Entregador</span>
+    <input type="radio" name="radio" id="radio-nav-5" />
+    <span>Lojas Parceiras
+    </span>
+    
+    <div class="scroll">
+      <section class="section" id="section-1">
+        
+          <div class="logo"></div>
+  
+          <h2>Usuários</h2>
+          <div class="form">
+            <form method="post" action="processa_usuarios.php" id="usuarioForm"><p>
+              
+              <label for="nome">Nome:</label>
+              <input type="text" name="nome" id="nome" size="41" maxlength="50" placeholder="Digite o Nome Completo" required><br>
+          
+              <label for="txtEndereco">Email</E-mail>:</label>
+              <input type="email" name="email" id="email" size="41" maxlength="50" placeholder="Digite o Email" required><br>
+  
+              <label for="condominio">Condomínio:</label>
+            
+            <select name="condominio" id="condominio">
+              
+              <option value="Bela Alvorada">Bela Alvorada</option>
+              <option value="Show de Morar">Show de Morar</option>
+              <option value="Borges Landeiro">Borges Landeiro</option>
+              <option value="Aqua Marine">Aqua Marine</option>
+              <option value="Top Life">Top Life</option>
+            </select><br>
+  
+            <label for="apartamento">Apartamento:</label>
+            <input type="text" name="apartamento" id="apartamento" size="35" maxlength="10" placeholder="Digite o Apartamento" required><br>
+
+            <!-- Botão para inserir dados -->
+            <input type="button" value="Inserir" onclick="inserirDados()">
+
+            <!-- Botão para consultar dados (referenciado lá em baixo no código) -->
+            <input type="button" value="Consultar" onclick="consultarDados1()">
+  
+            </p>
+          </div>
+        </form>
+        </section>
+
+        <script>
+          // Função para inserir dados usando AJAX
+          function inserirDados() {
+              var form = document.getElementById("usuarioForm");
+              var formData = new FormData(form);
+      
+              // Realizar uma solicitação AJAX para processa_usuarios.php
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", "processa_usuarios.php", true);
+      
+              xhr.onreadystatechange = function () {
+                  if (xhr.readyState === 4) {
+                      if (xhr.status === 200) {
+                          // resposta da inserção
+                          alert("Registro inserido com sucesso.");
+                          form.reset(); // Limpa o formulário
+                      } else {
+                          alert("Erro ao inserir o registro: " + xhr.responseText);
+                      }
+                  }
+              };
+      
+              xhr.send(formData);
+          }
+      </script>
+      
+      
+      <section class="section" id="section-2">
+        <div class="logo"></div>
+
+        <h2>Pedidos para Entrega</h2>
+        <div class="form">
+          <form method="post" action="processa_pedidos.php">
+            <p>
+            
+              <label for="nome">Nome:</label>
+              <input type="text" name="nome" id="nome" size="41" maxlength="50" placeholder="Digite o nome do pedido" required> <br>
+          
+              <label for="txtEndereco">Loja:</label>
+              <input type="text" name="loja" id="loja" size="41" maxlength="50" placeholder="Digite o Endereço" required><br>
+  
+              <label for="condominio">Condomínio:</label>
+            
+            <select name="condominio" id="condominio">
+              
+              <option value="Bela Alvorada">Bela Alvorada</option>
+              <option value="Show de Morar">Show de Morar</option>
+              <option value="Borges Landeiro">Borges Landeiro</option>
+              <option value="Aqua Marine">Aqua Marine</option>
+              <option value="Top Life">Top Life</option>
+            </select><br>
+  
+            <label for="preco">Preço:</label>
+            <input type="text" name="preco" id="preco" size="35" maxlength="10" placeholder="Digite o Valor" required><br>
+  
+            <input type="submit" value="Inserir">
+            <!-- Botão para consultar dados (referenciado lá em baixo no código) -->
+            <input type="button" value="Consultar" onclick="consultarDados2()">
+
+          </p>
+        </div>
+      </form>
+    </section>
+      
+
+      <section class="section" id="section-3">
+        <div class="logo"></div>
+
+        <h2>Consulta</h2>
+        <div class="form">
+              <form method="post" action="consulta.php"><p>
+                <input type="text" name="campoConsulta" id="campoConsulta" placeholder="Digite o nome">
+                <input type="text" name="idUsuario" id="idUsuario" placeholder="ID do usuário a excluir">
+                <input type="submit" value="Consultar">
+                <input type="button" value="excluir" onclick="excluirUsuario()">
+              </form>
+          </div>
+      </section>
+      
+      <script>
+          function excluirUsuario() {
+              var idUsuario = document.getElementById("idUsuario").value;
+      
+              // Realizar uma solicitação AJAX para exclusao.php
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", "exclusao.php", true);
+              xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+              xhr.onreadystatechange = function () {
+                  if (xhr.readyState === 4 && xhr.status === 200) {
+                      // resposta da exclusão
+                      alert(xhr.responseText);
+                  }
+              };
+              xhr.send("idUsuario=" + idUsuario);
+          }
+      </script>
+          
+      <section class="section" id="section-4">
+        <div class="logo"> </div>
+
+        <h2>Entregador</h2>  
+        <div class="form">
+          <form method="post" action="processa_entregador.php">
+            <p>
+            
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" size="41" maxlength="50" placeholder="Digite o nome do Entregador" required><br>
+          
+            <label for="loja">Loja:</label>
+            <input type="text" name="loja" id="loja" size="41" maxlength="50" placeholder="Digite a loja do Entregador"required><br>
+
+            <label for="apartamento">Apartamento:</label>
+            <input type="text" name="apartamento" id="apartamento" size="35" maxlength="10" placeholder="Digite o Ap que receberá a entrega"required>
+            <br>
+
+            <input type="submit" value="Inserir">
+            <!-- Botão para consultar dados (referenciado lá em baixo no código) -->
+            <input type="button" value="Consultar" onclick="consultarDados3()">
+
+          </p>
+        </div>
+      </form>
+      </section>
+
+      <section class="section" id="section-5">
+        <div class="logo">
+         
+        </div>
+        <h2>Lojas Parceiras</h2>
+        
+        <div class="form">
+            <form method="post" action="processa_loja.php">
+              <p>
+              
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" size="41" maxlength="50" placeholder="Digite o nome da Loja" required><br>
+            
+                <label for="txtEndereco">Email</E-mail>:</label>
+                <input type="email" name="email" id="email" size="41" maxlength="50" placeholder="Digite o email ou contato da Loja" required><br>
+    
+                <label for="condominio">Condomínio:</label>
+              
+              <select name="condominio" id="condominio">
+                
+                <option value="Bela Alvorada">Bela Alvorada</option>
+                <option value="Show de Morar">Show de Morar</option>
+                <option value="Borges Landeiro">Borges Landeiro</option>
+                <option value="Aqua Marine">Aqua Marine</option>
+                <option value="Top Life">Top Life</option>
+              </select><br>
+    
+              <label for="apartamento">Apartamento:</label>
+              <input type="text" name="apartamento" id="apartamento" size="35" maxlength="10" placeholder="Digite o Ap que receberá a entrega" required><br>
+  
+              <input type="submit" value="Inserir">
+              <!-- Botão para consultar dados (referenciado aqui abaixo no consultarDados4) -->
+            <input type="button" value="Consultar" onclick="consultarDados4()">
+  
+            </p>
+          </div>
+        </form>
+      </section>
+
+        <script>
+          function consultarDados1() {
+            // parâmetros de consulta - primeira parte da tela usuários
+            var campoConsulta = document.getElementById("campoConsulta").value;
+    
+            // Solicitação para o arquivo PHP
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "processa_usuarios.php?consulta=" + campoConsulta, true);
+    
+            xhr.onload = function () {
+              if (xhr.status == 200) {
+                // Resposta da consulta
+                var resultadoConsulta = xhr.responseText;
+                // Resultados da consulta (ajustando o alert com uma formatação melhor)
+                var resultadosFormatados = formatarResultados(JSON.parse(resultadoConsulta));
+                
+                alert("Resultados da consulta:\n\n" + resultadosFormatados);} 
+                else {
+                alert("Erro ao consultar dados.");
+                      }
+                };
+    
+            xhr.send();
+                }
+                // Função de formatar os resultados
+                function formatarResultados(resultados) 
+                {
+                var resultadoFormatado = "";
+                resultados.forEach(function (resultado) {
+                resultadoFormatado += "Id: " + resultado.id + "\n";
+                resultadoFormatado += "Nome: " + resultado.nome + "\n";
+                resultadoFormatado += "Email: " + resultado.email + "\n";
+                resultadoFormatado += "Condomínio: " + resultado.condominio + "\n";
+                resultadoFormatado += "Apartamento: " + resultado.apartamento + "\n\n";
+                });
+                return resultadoFormatado;
+                }
+
+        </script>
+
+        <script>
+          function consultarDados2() {
+            // parâmetros de consulta - segunda parte da tela pedidos
+            var campoConsulta = document.getElementById("campoConsulta").value;
+    
+            // Solicitação para o arquivo PHP
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "processa_pedidos.php?consulta=" + campoConsulta, true);
+    
+            xhr.onload = function () {
+              if (xhr.status == 200) {
+                // Resposta da consulta
+                var resultadoConsulta = xhr.responseText;
+                // Resultados da consulta 
+                var resultadosFormatados = formatarResultados(JSON.parse(resultadoConsulta));
+                
+                alert("Resultados da consulta:\n\n" + resultadosFormatados);} 
+                else {
+                alert("Erro ao consultar dados.");
+                      }
+                };
+    
+            xhr.send();
+                }
+                // Função para formatar os resultados
+                function formatarResultados(resultados) 
+                {
+                var resultadoFormatado = "";
+                resultados.forEach(function (resultado) {
+                resultadoFormatado += "Id: " + resultado.id + "\n";
+                resultadoFormatado += "Nome: " + resultado.nome + "\n";
+                resultadoFormatado += "Email: " + resultado.email + "\n";
+                resultadoFormatado += "Condomínio: " + resultado.condominio + "\n";
+                resultadoFormatado += "Apartamento: " + resultado.apartamento + "\n\n";
+                });
+                return resultadoFormatado;
+                }
+        </script>
+
+        <script>
+          function consultarDados3() {
+            // parâmetros de consulta - quarta parte da tela pedidos
+            var campoConsulta = document.getElementById("campoConsulta").value;
+    
+            // Solicitação para o arquivo PHP
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "processa_entregador.php?consulta=" + campoConsulta, true);
+    
+            xhr.onload = function () {
+              if (xhr.status == 200) {
+                // Resposta da consulta
+                var resultadoConsulta = xhr.responseText;
+                // Resultados da consulta 
+                var resultadosFormatados = formatarResultados(JSON.parse(resultadoConsulta));
+                
+                alert("Resultados da consulta:\n\n" + resultadosFormatados);} 
+                else {
+                alert("Erro ao consultar dados.");
+                      }
+                };
+    
+            xhr.send();
+                }
+                // Função para formatar os resultados
+                function formatarResultados(resultados) 
+                {
+                var resultadoFormatado = "";
+                resultados.forEach(function (resultado) {
+                resultadoFormatado += "Id: " + resultado.id + "\n";
+                resultadoFormatado += "Nome: " + resultado.nome + "\n";
+                resultadoFormatado += "Email: " + resultado.email + "\n";
+                resultadoFormatado += "Condomínio: " + resultado.condominio + "\n";
+                resultadoFormatado += "Apartamento: " + resultado.apartamento + "\n\n";
+                });
+                return resultadoFormatado;
+                }
+        </script>
+
+        <script>
+          function consultarDados4() {
+            // parâmetros de consulta - quinta parte da tela pedidos
+            var campoConsulta = document.getElementById("campoConsulta").value;
+    
+            // Solicitação AJAX para PHP
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "processa_loja.php?consulta=" + campoConsulta, true);
+    
+            xhr.onload = function () {
+              if (xhr.status == 200) {
+                // Resposta da consulta
+                var resultadoConsulta = xhr.responseText;
+                // Resultados da consulta (em tela de alerta na mesma tela)
+                var resultadosFormatados = formatarResultados(JSON.parse(resultadoConsulta));
+                
+                alert("Resultados da consulta:\n\n" + resultadosFormatados);} 
+                else {
+                alert("Erro ao consultar dados.");
+                      }
+                };
+    
+            xhr.send();
+                }
+                // Função para formatar os resultados
+                function formatarResultados(resultados) 
+                {
+                var resultadoFormatado = "";
+                resultados.forEach(function (resultado) {
+                resultadoFormatado += "Id: " + resultado.id + "\n";
+                resultadoFormatado += "Nome: " + resultado.nome + "\n";
+                resultadoFormatado += "Email: " + resultado.email + "\n";
+                resultadoFormatado += "Condomínio: " + resultado.condominio + "\n";
+                resultadoFormatado += "Apartamento: " + resultado.apartamento + "\n\n";
+                });
+                return resultadoFormatado;
+                }
+        </script>
+    </div>
+  </body>
+
+</html>

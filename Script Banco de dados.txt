@@ -1,0 +1,34 @@
+CREATE DATABASE pidw;
+use pidw;
+CREATE TABLE usuarios (
+	id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    condominio VARCHAR(255) NOT NULL,
+    apartamento VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+    );
+    
+    CREATE TABLE pedidos (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    loja VARCHAR(255) NOT NULL,
+    condominio VARCHAR(255) NOT NULL,
+    preco VARCHAR(255) NOT NULL
+    );
+    
+    CREATE TABLE entregador (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    loja VARCHAR(255) NOT NULL,
+    apartamento VARCHAR(255) NOT NULL
+    );
+    
+    CREATE TABLE lojas (
+	id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+	condominio VARCHAR(255) NOT NULL,
+    apartamento VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+    );

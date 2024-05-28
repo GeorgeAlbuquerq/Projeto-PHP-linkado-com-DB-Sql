@@ -1,8 +1,8 @@
 <?php
-$server = "127.0.0.1";
+$server = "";
 $database = "pidw";
 $uid = "root";
-$password = "123deolivera4";
+$password = "";
 
 // Criar uma conexão
 $connection = new mysqli($server, $uid, $password, $database);
